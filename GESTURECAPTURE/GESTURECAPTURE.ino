@@ -1,5 +1,7 @@
 #include <Arduino_LSM9DS1.h>
 
+#include <Arduino_HTS221.h>
+
 #define RED 22
 #define BLUE 24
 #define GREEN 23
@@ -17,7 +19,10 @@ void setup() {
     while (1)
       ;
   }
-
+     if (!HTS.begin()) {
+    Serial.println("Failed to initialize humidity temperature sensor!");
+    while (1);
+  }
   Serial.print("Accelerometer sample rate = ");
   Serial.print(IMU.gyroscopeSampleRate());
   Serial.println(" Hz");
@@ -28,7 +33,16 @@ void setup() {
 
 void loop() {
   float x, y, z;
+    float temperature = HTS.readTemperature();
+  float humidity    = HTS.readHumidity();
 
+  // print each of the sensor values
+ 
+  Serial.print(temperature);
+  Serial.print("\t");
+
+  Serial.println(humidity);
+  
 
 
 
@@ -36,7 +50,7 @@ void loop() {
 
   if (IMU.gyroscopeAvailable()) {
     IMU.readAcceleration(x, y, z);
-    Serial.println(x);
+    //Serial.println(x);
   // Serial.print("\t");
     //Serial.print(y);
     //Serial.print("\t");
@@ -46,7 +60,7 @@ void loop() {
       digitalWrite(RED, LOW);
       digitalWrite(GREEN, HIGH);
       digitalWrite(BLUE, HIGH);
-      Serial.println("D");
+      //Serial.println("D");
 
     }
 
@@ -54,7 +68,7 @@ void loop() {
       digitalWrite(RED, HIGH);
       digitalWrite(GREEN, LOW);
       digitalWrite(BLUE, HIGH);
-      Serial.println("UP");
+      //Serial.println("UP");
 
     }
 
@@ -62,7 +76,7 @@ void loop() {
       digitalWrite(RED, HIGH);
       digitalWrite(GREEN, HIGH);
       digitalWrite(BLUE, LOW);
-      Serial.println("R");
+    // Serial.println("R");
 
     }
 
@@ -70,7 +84,7 @@ void loop() {
       digitalWrite(RED, LOW);
       digitalWrite(GREEN, LOW);
       digitalWrite(BLUE, LOW);
-      Serial.println("L");
+     // Serial.println("L");
     }
 
 
@@ -78,7 +92,7 @@ void loop() {
       digitalWrite(RED, HIGH);
       digitalWrite(GREEN, HIGH);
       digitalWrite(BLUE, HIGH);
-      Serial.println("N");
+    //  Serial.println("N");
     }
     
   }
