@@ -1,6 +1,6 @@
 #include <Arduino_LSM9DS1.h>
-
 #include <Arduino_HTS221.h>
+//#include <SoftwareSerial.h>
 
 #define RED 22
 #define BLUE 24
@@ -11,6 +11,7 @@ void setup() {
   pinMode(RED, OUTPUT);
   pinMode(BLUE, OUTPUT);
   pinMode(GREEN, OUTPUT);
+  randomSeed(analogRead(0));
    while (!Serial);
   Serial.println("Started");
 
@@ -33,6 +34,9 @@ void setup() {
 
 void loop() {
   float x, y, z;
+  int hb= random(60,120);
+  int ox= random(50,99);
+  int t= random(34,45);
     float temperature = HTS.readTemperature();
   float humidity    = HTS.readHumidity();
 
@@ -60,7 +64,7 @@ void loop() {
       digitalWrite(RED, LOW);
       digitalWrite(GREEN, HIGH);
       digitalWrite(BLUE, HIGH);
-      //Serial.println("D");
+      Serial.println("T");
 
     }
 
@@ -68,7 +72,7 @@ void loop() {
       digitalWrite(RED, HIGH);
       digitalWrite(GREEN, LOW);
       digitalWrite(BLUE, HIGH);
-      //Serial.println("UP");
+      Serial.println("F");
 
     }
 
@@ -76,7 +80,7 @@ void loop() {
       digitalWrite(RED, HIGH);
       digitalWrite(GREEN, HIGH);
       digitalWrite(BLUE, LOW);
-    // Serial.println("R");
+    Serial.println("D");
 
     }
 
@@ -84,7 +88,7 @@ void loop() {
       digitalWrite(RED, LOW);
       digitalWrite(GREEN, LOW);
       digitalWrite(BLUE, LOW);
-     // Serial.println("L");
+      Serial.println("E");
     }
 
 
@@ -92,11 +96,16 @@ void loop() {
       digitalWrite(RED, HIGH);
       digitalWrite(GREEN, HIGH);
       digitalWrite(BLUE, HIGH);
-    //  Serial.println("N");
+     Serial.println("P");
     }
     
   }
-
+  Serial.println(ox);
+  Serial.println(hb);
+  Serial.println(t);
+  Serial.println(gsr);
+  Serial.pritnln(temperature);
+  Serial.println(humidity);
   delay(50);
 }
 
