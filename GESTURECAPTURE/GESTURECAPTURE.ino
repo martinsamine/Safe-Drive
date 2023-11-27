@@ -7,7 +7,7 @@
 #define GREEN 23
 
 void setup() {
-  Serial.begin(9600);
+  Serial.begin();
   pinMode(RED, OUTPUT);
   pinMode(BLUE, OUTPUT);
   pinMode(GREEN, OUTPUT);
@@ -24,7 +24,7 @@ void setup() {
     Serial.println("Failed to initialize humidity temperature sensor!");
     while (1);
   }
-  Serial.print("Accelerometer sample rate = ");
+  Serial.print("Accelero  meter sample rate = ");
   Serial.print(IMU.gyroscopeSampleRate());
   Serial.println(" Hz");
   Serial.println();
